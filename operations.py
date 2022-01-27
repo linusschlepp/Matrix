@@ -35,3 +35,4 @@ def check(matrix_1, matrix_2):
 def print_list_operations():
     for x in string_list:
         print(x)
+    string_list.clear()

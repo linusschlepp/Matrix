@@ -24,20 +24,27 @@ def define_vector(size):
 
 
 if __name__ == '__main__':
-    print("Enter the proportions of your vector and matrix")
-    proportions = int(input())
-    print ("Enter the operations, you want to execute")
-    input_user = input()
 
-    if input_user == 'random':
-        solve_matrix(generate_random_matrix(proportions, proportions), generate_random_vector(proportions))
-        print_list()
-    elif input_user == 'solve':
-        solve_matrix(define_matrix(proportions), define_vector(proportions))
-        print_list()
-    elif input_user == 'multiply':
-        multiply_matrices(define_matrix(proportions), define_matrix(proportions))
-        print_list_operations()
-    elif input_user == 'add':
-        add_matrices(define_matrix(proportions), define_matrix(proportions))
-        print_list_operations()
+    while True:
+        print("Enter the proportions of your vector and matrix")
+        try:
+            proportions = int(input())
+        except ValueError:
+            print("Wrong input"+"\n")
+            continue
+
+        print ("Enter the operations, you want to execute")
+        input_user = input()
+
+        if input_user == 'random':
+            solve_matrix(generate_random_matrix(proportions, proportions), generate_random_vector(proportions))
+            print_list()
+        elif input_user == 'solve':
+            solve_matrix(define_matrix(proportions), define_vector(proportions))
+            print_list()
+        elif input_user == 'multiply':
+            multiply_matrices(define_matrix(proportions), define_matrix(proportions))
+            print_list_operations()
+        elif input_user == 'add':
+            add_matrices(define_matrix(proportions), define_matrix(proportions))
+            print_list_operations()
