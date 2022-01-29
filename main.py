@@ -2,12 +2,12 @@ from matrix_calculations import solve_matrix, print_list, generate_random_vector
 from operations import add_matrices, multiply_matrices, print_list_operations
 
 
-def define_matrix(size):
-    matrix = [[0 for x in range(size)] for y in range(size)]
+def define_matrix(am_rows, am_col):
+    matrix = [[0 for x in range(am_rows)] for y in range(am_col)]
 
     print("Please enter the matrix you have in mind")
-    for x in range(size):
-        for y in range(size):
+    for x in range(am_rows):
+        for y in range(am_col):
             matrix[x][y] = float(input(str(x)+"/"+str(y)+": "))
 
     return matrix
@@ -28,7 +28,8 @@ if __name__ == '__main__':
     while True:
         print("Enter the proportions of your vector and matrix")
         try:
-            proportions = int(input())
+            size_rows = int(input("Enter the amount of rows"))
+            size_cols = int(input("Enter the amount of columns"))
         except ValueError:
             print("Wrong input"+"\n")
             continue
@@ -37,14 +38,14 @@ if __name__ == '__main__':
         input_user = input()
 
         if input_user == 'random':
-            solve_matrix(generate_random_matrix(proportions, proportions), generate_random_vector(proportions))
+            solve_matrix(generate_random_matrix(size_rows, size_cols), generate_random_vector(size_cols))
             print_list()
         elif input_user == 'solve':
-            solve_matrix(define_matrix(proportions), define_vector(proportions))
+            solve_matrix(define_matrix(size_rows, size_cols), define_vector(size_rows))
             print_list()
         elif input_user == 'multiply':
-            multiply_matrices(define_matrix(proportions), define_matrix(proportions))
+            multiply_matrices(define_matrix(size_rows, size_cols), define_matrix(size_rows))
             print_list_operations()
         elif input_user == 'add':
-            add_matrices(define_matrix(proportions), define_matrix(proportions))
+            add_matrices(define_matrix(size_rows, size_cols), define_matrix(size_rows))
             print_list_operations()
