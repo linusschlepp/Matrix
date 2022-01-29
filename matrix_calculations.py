@@ -7,7 +7,6 @@ string_list = []
 np.set_printoptions(suppress=True, formatter={'float_kind': '{:20.2f}'.format}, linewidth=130)
 
 
-# Fix error: for some error it adds 0 at the pivots and stuff
 def generate_random_vector(size_rows):
     vector = [size_rows - 1]
     for x in range(size_rows - 1):
@@ -81,6 +80,7 @@ def solve_matrix(matrix, vector):
             if not check_matrix(matrix, vector):
                 return
     find_solutions(matrix, vector)
+
 
 
 def print_matrix_and_vector(matrix, vector):
