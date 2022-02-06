@@ -33,11 +33,12 @@ class Window:
                               command=lambda: self.show_matrix(int(self.cb_row.get()), int(self.cb_col.get()), True))
         self.btn_two = Button(win, text='Enter two Matrices', fg='blue',
                               command=lambda: self.matrix_operations(int(self.cb_row.get()), int(self.cb_col.get()),
-                                                                     False,
-                                                                     False))
-        # self.btn_add = Button(win, text='Add Matrices', fg='blue',
-        #                       command=lambda: self.matrix_operations(int(self.cb_row.get()), int(self.cb_col.get()),
-        #                                                              True, False))
+                                                                     False, False))
+
+        self.btn_add = None
+        self.btn_multiply = None
+
+
         self.btn_solve.place(x=10, y=100)
         self.btn_ran.place(x=95, y=100)
         self.btn_two.place(x=250, y=100)
