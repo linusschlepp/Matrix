@@ -1,5 +1,5 @@
 from matrix_calculations import solve_matrix, print_list, generate_random_vector, generate_random_matrix
-from operations import add_matrices, multiply_matrices, print_list_operations
+from matrix_operations import add_matrices, multiply_matrices, print_list_operations
 
 
 def define_matrix(am_rows, am_col):

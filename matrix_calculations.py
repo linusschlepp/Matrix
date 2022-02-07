@@ -82,7 +82,6 @@ def solve_matrix(matrix, vector):
     find_solutions(matrix, vector)
 
 
-
 def print_matrix_and_vector(matrix, vector):
     matrix_1 = [[0 for x in range(len(matrix) + 1)] for y in range(len(matrix))]
 
@@ -100,6 +99,3 @@ def print_list():
     for x in string_list:
         print(x)
     string_list.clear()
-
-
-

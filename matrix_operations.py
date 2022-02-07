@@ -1,6 +1,11 @@
 string_list = []
+import numpy as np
 
 
+# np.set_printoptions(suppress=True, formatter={'float_kind': '{:20.2f}'.format}, linewidth=130)
+
+
+# TODO: Make it all printable
 def add_matrices(matrix_1, matrix_2):
     if check(matrix_1, matrix_2):
         string_list.append('Solution of addition')
@@ -21,6 +26,8 @@ def multiply_matrices(matrix_1, matrix_2):
                     sb.append(str(matrix_1[x][y] * matrix_2[t][y]) + " ")
 
                 string_list.append(str(sb))
+
+            print(string_list)
 
 
 def check(matrix_1, matrix_2):
