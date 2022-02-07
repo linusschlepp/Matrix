@@ -7,8 +7,6 @@ from gui_output import WindowOutput
 
 class Window:
 
-
-
     def __init__(self, win):
 
         self.win = win
@@ -34,13 +32,16 @@ class Window:
         self.t3 = Text(win, height=50, width=100)
         self.t3.place(x=750, y=5)
 
+        # Matrix gets solved
         self.btn_solve = Button(win, text='Solve', fg='blue',
                                 command=lambda: self.convert_to_list_single(self.matrix_list_1, self.vector_list))
+        # Grid is filled with random values
         self.btn_ran = Button(win, text='Fill with random values', fg='blue',
-                              command=lambda: self.show_matrix(int(self.cb_row.get()), int(self.cb_col.get()), True))
+                              command=lambda: self.input_single_matrix(int(self.cb_row.get()), int(self.cb_col.get()), True))
+        #
         self.btn_two = Button(win, text='Enter two Matrices', fg='blue',
-                              command=lambda: self.matrix_operations(int(self.cb_row.get()), int(self.cb_col.get()),
-                                                                     False, False))
+                              command=lambda: self.input_two_matrix(int(self.cb_row.get()), int(self.cb_col.get()),
+                                                                    False, False))
 
         self.btn_add = Button()
         self.btn_multiply = Button()
@@ -51,22 +52,22 @@ class Window:
         self.btn_two.place(x=215, y=100)
 
         self.cb_col.bind("<<ComboboxSelected>>",
-                         lambda x: self.show_matrix(int(self.cb_row.get()), int(self.cb_col.get()), False))
+                         lambda x: self.input_single_matrix(int(self.cb_row.get()), int(self.cb_col.get()), False))
         self.cb_row.bind("<<ComboboxSelected>>",
-                         lambda x: self.show_matrix(int(self.cb_row.get()), int(self.cb_col.get()), False))
+                         lambda x: self.input_single_matrix(int(self.cb_row.get()), int(self.cb_col.get()), False))
         window.title('Matrix solver')
         window.geometry('1500x700+10+10')
-        self.show_matrix(int(self.cb_row.get()), int(self.cb_col.get()), False)
+        self.input_single_matrix(int(self.cb_row.get()), int(self.cb_col.get()), False)
         window.mainloop()
 
-    def show_matrix(self, am_rows, am_cols, is_ran):
+    def input_single_matrix(self, am_rows, am_cols, is_ran):
 
-        self.btn_add.pack_forget()
-        self.btn_multiply.pack_forget()
-        self.btn_single.pack_forget()
+        self.btn_add.destroy()
+        self.btn_multiply.destroy()
+        self.btn_single.destroy()
 
         if not len(self.entries_2) == 0:
-            self.matrix_operations(am_rows, am_cols, False, is_ran)
+            self.input_two_matrix(am_rows, am_cols, False, is_ran)
             return
 
         # Clears the grid of the matrix, if it already exists
@@ -104,17 +105,24 @@ class Window:
         self.btn_single.destroy()
         self.btn_multiply.destroy()
         self.btn_add.destroy()
+        # Button to enter two matrices is being recreated
         self.btn_two = Button(self.win, text='Enter two Matrices', fg='blue',
-                              command=lambda: self.matrix_operations(int(self.cb_row.get()), int(self.cb_col.get()),
-                                                                     False, False))
+                              command=lambda: self.input_two_matrix(int(self.cb_row.get()), int(self.cb_col.get()),
+                                                                    False, False))
+        # Solve Button is being recreated
+        self.btn_solve = Button(self.win, text='Solve', fg='blue',
+                                command=lambda: self.convert_to_list_single(self.matrix_list_1, self.vector_list))
 
+        # Buttons are being placed
         self.btn_two.place(x=215, y=100)
+        self.btn_solve.place(x=20, y=100)
 
-    def matrix_operations(self, am_rows, am_cols, multiply, is_ran):
+    def input_two_matrix(self, am_rows, am_cols, multiply, is_ran):
 
         self.btn_two.destroy()
+        self.btn_solve.destroy()
 
-        # TODO: Still need to find the right commands for both buttons
+        # TODO: Find better and sleeker solution
         self.btn_add = Button(self.win, text='Add Matrices', fg='blue',
                               command=lambda: self.convert_to_list_double(self.matrix_list_1, self.matrix_list_2,
                                                                           False))
@@ -123,9 +131,9 @@ class Window:
                                                                                True))
         self.btn_single = Button(self.win, text='Enter single Matrix', fg='blue',
                                  command=lambda: self.clear_second_matrix())
-        self.btn_add.pack()
-        self.btn_multiply.pack()
-        self.btn_single.pack()
+        # self.btn_add.pack()
+        # self.btn_multiply.pack()
+        # self.btn_single.pack()
         self.btn_add.place(x=380, y=100)
         self.btn_multiply.place(x=480, y=100)
         self.btn_single.place(x=620, y=100)
@@ -156,10 +164,12 @@ class Window:
                 self.matrix_list_1.append(self.t1)
                 self.matrix_list_2.append(self.t2)
 
+    # converts two matrices into arrays, to perform calculations on them
     def convert_to_list_double(self, list_matrix_1, list_matrix_2, multiply):
         matrix_1 = [[0 for x in range(int(self.cb_row.get()))] for y in range(int(self.cb_col.get()))]
         matrix_2 = [[0 for x in range(int(self.cb_row.get()))] for y in range(int(self.cb_col.get()))]
 
+        # TODO: Requires error handling as well
         index = 0
         for x in range(int(self.cb_row.get())):
             for y in range(int(self.cb_col.get())):
@@ -171,7 +181,7 @@ class Window:
             mp.multiply_matrices(matrix_1, matrix_2)
         else:
             mp.add_matrices(matrix_1, matrix_2)
-
+        # string_list gets inserted into the textarea
         self.t3.insert(1.0, mp.string_list)
 
     # converts the grid, into the matrix and vector list
@@ -180,15 +190,21 @@ class Window:
         matrix = [[0 for x in range(int(self.cb_row.get()))] for y in range(int(self.cb_col.get()))]
         vector = []
         # TODO: IndexError gets thrown if dimension of columns and rows differ, this still needs to be fixed
-        index = 0
-        for x in range(int(self.cb_row.get())):
-            for y in range(int(self.cb_col.get())):
-                matrix[x][y] = float(list_matrix[index].get())
-                index = index + 1
-            vector.append(float(list_vector[x].get()))
+        try:
+            index = 0
+            for x in range(int(self.cb_row.get())):
+                for y in range(int(self.cb_col.get())):
+                    matrix[x][y] = float(list_matrix[index].get())
+                    index = index + 1
+                vector.append(float(list_vector[x].get()))
+            solve_matrix(matrix, vector)
+            print_list()
+        except ValueError:
+            # TODO: Make label disappear
+            label = Label(self.win, text="Enter values first!", fg="red")
+            label.place(x=30, y=350)
 
-        solve_matrix(matrix, vector)
-        print_list()
+
     # WindowOutput()
 
 
