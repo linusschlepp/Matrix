@@ -5,7 +5,7 @@ import numpy as np
 string_list = []
 
 np.set_printoptions(suppress=True, formatter={'float_kind': '{:20.2f}'.format}, linewidth=130)
-
+# TODO: Remove unnecessary print statements
 
 def generate_random_vector(size_rows):
     vector = [size_rows - 1]

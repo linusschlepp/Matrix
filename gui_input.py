@@ -30,7 +30,7 @@ class Window:
         self.entries_1 = []
         self.entries_2 = []
         self.operation = None
-        self.t3 = Text(win, height=50, width=100)
+        self.t3 = Text(win, height=50, width=130)
         self.t3.place(x=750, y=5)
 
         # Matrix gets solved
@@ -58,7 +58,7 @@ class Window:
         self.cb_row.bind("<<ComboboxSelected>>",
                          lambda x: self.input_single_matrix(int(self.cb_row.get()), int(self.cb_col.get()), False))
         window.title('Matrix solver')
-        window.geometry('1500x700+10+10')
+        window.geometry('1700x800+10+10')
         self.input_single_matrix(int(self.cb_row.get()), int(self.cb_col.get()), False)
         window.mainloop()
 
@@ -135,6 +135,7 @@ class Window:
         self.btn_solve.destroy()
 
         # TODO: Find better and sleeker solution
+        # TODO: Basically, refactor the whole code
         self.btn_add = Button(self.win, text='Add Matrices', fg='blue',
                               command=lambda: self.convert_to_list_double(self.matrix_list_1, self.matrix_list_2,
                                                                           False))
@@ -198,6 +199,7 @@ class Window:
             else:
                 mp.add_matrices(matrix_1, matrix_2)
             # string_list gets inserted into the textarea
+            self.t3.delete(1.0, END)
             self.t3.insert(1.0, mp.string_list)
         except ValueError:
             self.label_warning = Label(self.win, text="Enter values first!", fg="red")
@@ -219,6 +221,7 @@ class Window:
                     index = index + 1
                 vector.append(float(list_vector[x].get()))
             solve_matrix(matrix, vector)
+            self.t3.delete(1.0, END)
             self.t3.insert(1.0, string_list)
             print_list()
         except ValueError:
