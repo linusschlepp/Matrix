@@ -209,8 +209,7 @@ class Window:
 
         matrix = [[0 for x in range(int(self.cb_col.get()))] for y in range(int(self.cb_row.get()))]
         vector = []
-        test1 = int(self.cb_col.get())
-        test2 = int(self.cb_row.get())
+
         # TODO: IndexError gets thrown if dimension of columns and rows differ, this still needs to be fixed
         try:
             index = 0
@@ -220,6 +219,7 @@ class Window:
                     index = index + 1
                 vector.append(float(list_vector[x].get()))
             solve_matrix(matrix, vector)
+            self.t3.insert(1.0, string_list)
             print_list()
         except ValueError:
             # TODO: Make label disappear

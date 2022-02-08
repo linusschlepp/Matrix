@@ -54,12 +54,16 @@ def check_matrix(matrix, vector):
 def show_operations(col_index1, col_index2, num1, num2):
     print("Row " + str(col_index2) + " * " + str(num2) + " - " + "Row " + str(col_index1)
           + " * " + str(num1) + "\n")
+    string_list.append("Row " + str(col_index2) + " * " + str(num2) + " - " + "Row " + str(col_index1)
+          + " * " + str(num1) + "\n")
 
 
 def solve_matrix(matrix, vector):
     for x in range(len(matrix)):
         if x == 0:
             print(np.matrix(print_matrix_and_vector(matrix, vector)).round())
+            string_list.append(np.matrix(print_matrix_and_vector(matrix, vector)).round())
+            string_list.append("\n")
             print()
         for y in range(len(matrix) - 1, -1, -1):
             try:
@@ -67,6 +71,7 @@ def solve_matrix(matrix, vector):
                 pivot_element2 = float(math.lcm(abs(int(matrix[x][x])), abs(int(matrix[y][x])))) / matrix[x][x]
             except ZeroDivisionError:
                 print('Matrix can not be solved')
+                string_list.append("Matrix can not be solved")
                 return
             if x == y:
                 continue
@@ -77,6 +82,8 @@ def solve_matrix(matrix, vector):
             vector[y] = round(pivot_element1 * vector[y] - pivot_element2 * vector[x], 2)
             print(np.matrix(print_matrix_and_vector(matrix, vector)))
             print()
+            string_list.append(np.matrix(print_matrix_and_vector(matrix, vector)))
+            string_list.append("\n")
             if not check_matrix(matrix, vector):
                 return
     find_solutions(matrix, vector)
