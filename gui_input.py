@@ -4,7 +4,7 @@ from matrix_calculations import *
 import matrix_operations as mp
 from gui_output import WindowOutput
 
-
+# TODO: Second label won't disappear when matrix is filled with values
 class Window:
 
     def __init__(self, win):
@@ -14,7 +14,10 @@ class Window:
         lbl_rows.place(x=10, y=50)
         lbl_col = Label(win, text='Insert columns', fg='red', font=('Helvetica', 8))
         lbl_col.place(x=10, y=70)
-
+        self.lbl_matrix_1 = Label(win, text='Matrix 1:', fg='black', font=('Helvetica', 10, 'bold italic'))
+        self.lbl_matrix_1.place(x=30, y=140)
+        # TODO: Should change to Label instead of None to avoid AttributeError
+        self.lbl_matrix_2 = Label()
         self.label_warning = None
         self.cb_row = Combobox(win, values=(2, 3, 4, 5, 6, 7, 8, 9))
         self.cb_col = Combobox(win, values=(2, 3, 4, 5, 6, 7, 8, 9))
@@ -31,7 +34,7 @@ class Window:
         self.entries_2 = []
         self.operation = None
         self.t3 = Text(win, height=50, width=130)
-        self.t3.place(x=750, y=5)
+        self.t3.place(x=840, y=5)
 
         # Matrix gets solved
         self.btn_solve = Button(win, text='Solve', fg='blue',
@@ -46,6 +49,7 @@ class Window:
                                                                     False, False))
 
         self.btn_add = Button()
+        self.btn_subtract = Button()
         self.btn_multiply = Button()
         self.btn_single = Button()
 
@@ -64,12 +68,13 @@ class Window:
 
     def input_single_matrix(self, am_rows, am_cols, is_ran):
 
-        if not self.label_warning is None:
-            self.destroy_label_warning()
+        # if not self.label_warning is None:
+        #     self.destroy_label_warning()
 
         self.btn_add.destroy()
         self.btn_multiply.destroy()
         self.btn_single.destroy()
+        self.btn_subtract.destroy()
 
         if not len(self.entries_2) == 0:
             self.input_two_matrix(am_rows, am_cols, False, is_ran)
@@ -114,6 +119,8 @@ class Window:
         self.btn_single.destroy()
         self.btn_multiply.destroy()
         self.btn_add.destroy()
+        self.btn_subtract.destroy()
+        self.lbl_matrix_2.destroy()
         # Button to enter two matrices is being recreated
         self.btn_two = Button(self.win, text='Enter two Matrices', fg='blue',
                               command=lambda: self.input_two_matrix(int(self.cb_row.get()), int(self.cb_col.get()),
@@ -138,18 +145,23 @@ class Window:
         # TODO: Basically, refactor the whole code
         self.btn_add = Button(self.win, text='Add Matrices', fg='blue',
                               command=lambda: self.convert_to_list_double(self.matrix_list_1, self.matrix_list_2,
-                                                                          False))
+                                                                          'add'))
+        self.btn_subtract = Button(self.win, text='Subtract Matrices', fg='blue',
+                                   command=lambda: self.convert_to_list_double(self.matrix_list_1, self.matrix_list_2,
+                                                                               'subtract'))
         self.btn_multiply = Button(self.win, text='Multiply Matrices', fg='blue',
                                    command=lambda: self.convert_to_list_double(self.matrix_list_1, self.matrix_list_2,
-                                                                               True))
+                                                                               'multiply'))
         self.btn_single = Button(self.win, text='Enter single Matrix', fg='blue',
                                  command=lambda: self.clear_second_matrix())
-        # self.btn_add.pack()
-        # self.btn_multiply.pack()
-        # self.btn_single.pack()
+
+        self.lbl_matrix_2 = Label(self.win, text='Matrix 2:', fg='black', font=('Helvetica', 10, 'bold italic'))
+
         self.btn_add.place(x=380, y=100)
         self.btn_multiply.place(x=480, y=100)
-        self.btn_single.place(x=620, y=100)
+        self.btn_subtract.place(x=600, y=100)
+        self.btn_single.place(x=720, y=100)
+        self.lbl_matrix_2.place(x=230, y=140)
 
         if not len(self.entries_1) == 0:
             for e in self.entries_1:
@@ -178,7 +190,7 @@ class Window:
                 self.matrix_list_2.append(self.t2)
 
     # converts two matrices into arrays, to perform calculations on them
-    def convert_to_list_double(self, list_matrix_1, list_matrix_2, multiply):
+    def convert_to_list_double(self, list_matrix_1, list_matrix_2, operation):
         if not self.label_warning is None:
             self.destroy_label_warning()
 
@@ -194,10 +206,12 @@ class Window:
                     matrix_2[x][y] = float(list_matrix_2[index].get())
                     index = index + 1
 
-            if multiply:
+            if operation == 'multiply':
                 mp.multiply_matrices(matrix_1, matrix_2)
-            else:
+            elif operation == 'add':
                 mp.add_matrices(matrix_1, matrix_2)
+            else:
+                mp.subtract_matrices(matrix_1, matrix_2)
             # string_list gets inserted into the textarea
             self.t3.delete(1.0, END)
             self.t3.insert(1.0, mp.string_list)
@@ -233,6 +247,7 @@ class Window:
         self.label_warning.destroy()
 
     # WindowOutput()
+
 
 
 window = Tk()

@@ -54,8 +54,10 @@ def check_matrix(matrix, vector):
 def show_operations(col_index1, col_index2, num1, num2):
     print("Row " + str(col_index2) + " * " + str(num2) + " - " + "Row " + str(col_index1)
           + " * " + str(num1) + "\n")
+    string_list.append("\n")
     string_list.append("Row " + str(col_index2) + " * " + str(num2) + " - " + "Row " + str(col_index1)
           + " * " + str(num1) + "\n")
+    string_list.append("\n")
 
 
 def solve_matrix(matrix, vector):
