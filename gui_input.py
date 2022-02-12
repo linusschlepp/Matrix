@@ -2,7 +2,8 @@ from tkinter import *
 from tkinter.ttk import Combobox
 from matrix_calculations import *
 import matrix_operations as mp
-from gui_output import WindowOutput
+
+
 
 # TODO: Second label won't disappear when matrix is filled with values
 class Window:
@@ -18,15 +19,15 @@ class Window:
         self.lbl_matrix_1.place(x=30, y=140)
         # TODO: Should change to Label instead of None to avoid AttributeError
         self.lbl_matrix_2 = Label()
-        self.label_warning = None
+        self.lbl_warning = Label()
         self.cb_row = Combobox(win, values=(2, 3, 4, 5, 6, 7, 8, 9))
         self.cb_col = Combobox(win, values=(2, 3, 4, 5, 6, 7, 8, 9))
         self.cb_row.current(1)
         self.cb_col.current(1)
         self.t1 = Entry()
         self.t2 = Entry()
-        self.cb_row.place(x=70, y=50)
-        self.cb_col.place(x=70, y=70)
+        self.cb_row.place(x=90, y=50)
+        self.cb_col.place(x=90, y=70)
         self.matrix_list_1 = []
         self.vector_list = []
         self.matrix_list_2 = []
@@ -46,7 +47,7 @@ class Window:
         #
         self.btn_two = Button(win, text='Enter two Matrices', fg='blue',
                               command=lambda: self.input_two_matrix(int(self.cb_row.get()), int(self.cb_col.get()),
-                                                                    False, False))
+                                                                    False))
 
         self.btn_add = Button()
         self.btn_subtract = Button()
@@ -75,9 +76,10 @@ class Window:
         self.btn_multiply.destroy()
         self.btn_single.destroy()
         self.btn_subtract.destroy()
+        self.lbl_warning.destroy()
 
         if not len(self.entries_2) == 0:
-            self.input_two_matrix(am_rows, am_cols, False, is_ran)
+            self.input_two_matrix(am_rows, am_cols, is_ran)
             return
 
         # Clears the grid of the matrix, if it already exists
@@ -109,13 +111,11 @@ class Window:
 
     def clear_second_matrix(self):
 
-        if not self.label_warning is None:
-            self.destroy_label_warning()
-
         for e in self.entries_2:
             e.destroy()
         self.entries_2.clear()
 
+        self.lbl_warning.destroy()
         self.btn_single.destroy()
         self.btn_multiply.destroy()
         self.btn_add.destroy()
@@ -124,7 +124,7 @@ class Window:
         # Button to enter two matrices is being recreated
         self.btn_two = Button(self.win, text='Enter two Matrices', fg='blue',
                               command=lambda: self.input_two_matrix(int(self.cb_row.get()), int(self.cb_col.get()),
-                                                                    False, False))
+                                                                    False))
         # Solve Button is being recreated
         self.btn_solve = Button(self.win, text='Solve', fg='blue',
                                 command=lambda: self.convert_to_list_single(self.matrix_list_1, self.vector_list))
@@ -132,14 +132,13 @@ class Window:
         # Buttons are being placed
         self.btn_two.place(x=215, y=100)
         self.btn_solve.place(x=20, y=100)
+        self.input_single_matrix(int(self.cb_row.get()), int(self.cb_col.get()), False)
 
-    def input_two_matrix(self, am_rows, am_cols, multiply, is_ran):
-
-        if not self.label_warning is None:
-            self.destroy_label_warning()
+    def input_two_matrix(self, am_rows, am_cols, is_ran):
 
         self.btn_two.destroy()
         self.btn_solve.destroy()
+        self.lbl_warning.destroy()
 
         # TODO: Find better and sleeker solution
         # TODO: Basically, refactor the whole code
@@ -191,9 +190,9 @@ class Window:
 
     # converts two matrices into arrays, to perform calculations on them
     def convert_to_list_double(self, list_matrix_1, list_matrix_2, operation):
-        if not self.label_warning is None:
-            self.destroy_label_warning()
 
+
+        self.lbl_warning.destroy()
         matrix_1 = [[0 for x in range(int(self.cb_col.get()))] for y in range(int(self.cb_row.get()))]
         matrix_2 = [[0 for x in range(int(self.cb_col.get()))] for y in range(int(self.cb_row.get()))]
 
@@ -216,8 +215,8 @@ class Window:
             self.t3.delete(1.0, END)
             self.t3.insert(1.0, mp.string_list)
         except ValueError:
-            self.label_warning = Label(self.win, text="Enter values first!", fg="red")
-            self.label_warning.place(x=30, y=350)
+            self.lbl_warning = Label(self.win, text="Enter values first!", fg="red")
+            self.lbl_warning.place(x=30, y=350)
 
     # converts the grid, into the matrix and vector list
     def convert_to_list_single(self, list_matrix, list_vector):
@@ -240,14 +239,10 @@ class Window:
             print_list()
         except ValueError:
             # TODO: Make label disappear
-            self.label_warning = Label(self.win, text="Enter values first!", fg="red")
-            self.label_warning.place(x=30, y=350)
-
-    def destroy_label_warning(self):
-        self.label_warning.destroy()
+            self.lbl_warning = Label(self.win, text="Enter values first!", fg="red")
+            self.lbl_warning.place(x=30, y=350)
 
     # WindowOutput()
-
 
 
 window = Tk()
