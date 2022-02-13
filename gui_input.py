@@ -4,12 +4,15 @@ from tkinter.ttk import Combobox
 import matrix_calculations as mcal
 import matrix_operations as mp
 import operations as op
+from PIL import ImageTk
 
 
 class Window:
     def __init__(self, win):
 
         self.win = win
+        # icon for the application is getting added
+        self.win.iconphoto(False, ImageTk.PhotoImage(file='images/taskbarpic.png'))
         lbl_rows = Label(win, text='Insert rows', fg='red', font=('Helvetica', 8))
         lbl_col = Label(win, text='Insert columns', fg='red', font=('Helvetica', 8))
         self.lbl_matrix_1 = Label(win, text='Matrix 1:', fg='black', font=('Helvetica', 10, 'bold italic'))
@@ -26,7 +29,6 @@ class Window:
         self.matrix_list_2 = []
         self.entries_1 = []
         self.entries_2 = []
-        self.operation = None
         self.t3 = Text(win, height=50, width=130)
         self.btn_add = Button()
         self.btn_subtract = Button()
