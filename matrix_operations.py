@@ -40,9 +40,9 @@ def multiply_matrices(matrix_1, matrix_2):
         string_list.append('Solution of the multiplication')
         string_list.append("\n")
         for x in range(len(matrix_1)):
-            for y in range(len(matrix_1[0])):
-                for t in range(len(matrix_1[0])):
-                    matrix_sol[x][y] = (matrix_1[x][y] * matrix_2[t][y])
+            for y in range(len(matrix_2[0])):
+                for t in range(len(matrix_2)):
+                    matrix_sol[x][y] += (matrix_1[x][t] * matrix_2[t][y])
         string_list.append(np.matrix(matrix_sol))
 
 
