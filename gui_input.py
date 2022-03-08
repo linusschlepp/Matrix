@@ -12,7 +12,7 @@ class Window:
 
         self.win = win
         # icon for the application is getting added
-        self.win.iconphoto(False, ImageTk.PhotoImage(file='images/taskbarpic.png'))
+        self.win.iconphoto(False, ImageTk.PhotoImage(file='images/appIcon.ico'))
         lbl_rows = Label(win, text='Insert rows', fg='red', font=('Helvetica', 8))
         lbl_col = Label(win, text='Insert columns', fg='red', font=('Helvetica', 8))
         self.lbl_matrix_1 = Label(win, text='Matrix 1:', fg='black', font=('Helvetica', 10, 'bold italic'))
