@@ -3,3 +3,7 @@ venv/
 Scratches and Consoles/
 gui_input.spec
 Matrix.spec
+__pycache__/
+dist/
+build/
+.idea/
