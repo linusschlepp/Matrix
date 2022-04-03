@@ -4,7 +4,8 @@ from tkinter.ttk import Combobox
 import matrix_calculations as mcal
 import matrix_operations as mp
 import operations as op
-from PIL import ImageTk
+import numpy
+
 
 
 class Window:
@@ -12,7 +13,8 @@ class Window:
 
         self.win = win
         # icon for the application is getting added
-        self.win.iconphoto(False, ImageTk.PhotoImage(file='images/appIcon.ico'))
+        # self.win.iconphoto(False, ImageTk.PhotoImage(file='images/appIcon.ico'))
+        self.win.iconbitmap(r'C:\Users\linus\PycharmProjects\Matrix\images\appIcon.ico')
         lbl_rows = Label(win, text='Insert rows', fg='red', font=('Helvetica', 8))
         lbl_col = Label(win, text='Insert columns', fg='red', font=('Helvetica', 8))
         self.lbl_matrix_1 = Label(win, text='Matrix 1:', fg='black', font=('Helvetica', 10, 'bold italic'))
