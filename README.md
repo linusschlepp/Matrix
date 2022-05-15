@@ -7,9 +7,9 @@ This project is a very simple Matrixsolver/ calculator, written in Python. It en
 It also offers a very intuitive (at least in my opion) GUI, which has been made, by using [Tkinter](https://docs.python.org/3/library/tkinter.html).
 
 ## This program uses
-* Tkinter
+* [Tkinter](https://docs.python.org/3/library/tkinter.html)
 
 ## Setup
-To use this project, clone it, by running this command in your terminal/cmd: `clone https://github.com/linusschlepp/Matrix.git`. 
+To use this project, clone it, by running this command in your terminal/cmd: `git clone https://github.com/linusschlepp/Matrix.git`. 
 Or you can also use it as a .exe-file: [How to create a .exe-File using PyInstaller](https://www.youtube.com/watch?v=QWqxRchawZY&t=274s&ab_channel=Codemy.com)
 
