@@ -1,6 +1,7 @@
-string_list = []
 import numpy as np
 
+
+string_list = []
 np.set_printoptions(suppress=True, formatter={'float_kind': '{:20.2f}'.format}, linewidth=130)
 
 
@@ -50,5 +51,3 @@ def check(matrix_1, matrix_2):
     elif len(matrix_1) == len(matrix_2) and len(matrix_1[0]) == len(matrix_1):
         return True
     return False
-
-

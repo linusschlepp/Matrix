@@ -4,16 +4,12 @@ from tkinter.ttk import Combobox
 import matrix_calculations as mcal
 import matrix_operations as mp
 import operations as op
-import numpy
-
 
 
 class Window:
     def __init__(self, win):
 
         self.win = win
-        # icon for the application is getting added
-        # self.win.iconphoto(False, ImageTk.PhotoImage(file='images/appIcon.ico'))
         self.win.iconbitmap(r'C:\Users\linus\PycharmProjects\Matrix\images\appIcon.ico')
         lbl_rows = Label(win, text='Insert rows', fg='red', font=('Helvetica', 8))
         lbl_col = Label(win, text='Insert columns', fg='red', font=('Helvetica', 8))
@@ -116,7 +112,7 @@ class Window:
         # grid 2 is getting destroyed/ all entry fields are removed from the layout
         [e.destroy() for e in self.entries_2]
 
-        # all itmes within the list of entries_2 are deleted
+        # all items within the list of entries_2 are deleted
         self.entries_2.clear()
         self.lbl_warning.destroy()
         self.btn_single.destroy()

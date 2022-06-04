@@ -1,12 +1,13 @@
 import math
-import random
 import numpy as np
 
+# string_list gets printed in textarea on gui_input
 string_list = []
 
 np.set_printoptions(suppress=True, formatter={'float_kind': '{:20.2f}'.format}, linewidth=130)
 
 
+# finds the solutions for the given matrix and vector
 def find_solutions(matrix, vector):
     solutions = []
     for x in range(len(matrix)):
@@ -18,6 +19,7 @@ def find_solutions(matrix, vector):
         string_list.append('x' + str(x) + ': ' + str(round(solutions[x], 2)))
 
 
+# checks if matrix and vector are even solve-able
 def check_matrix(matrix, vector):
     for x in range(len(matrix)):
         zero_counter = 0
@@ -33,18 +35,20 @@ def check_matrix(matrix, vector):
     return True
 
 
-def show_operations(col_index1, col_index2, num1, num2):
+# Prints calculation operations
+def print_operations(col_index1, col_index2, num1, num2):
     string_list.append("\n")
     string_list.append("Row " + str(col_index2) + " * " + str(num2) + " - " + "Row " + str(col_index1)
                        + " * " + str(num1) + "\n")
     string_list.append("\n")
 
 
+# Solves the matrix and the vector, it thereby creates the matrix step-form
 def solve_matrix(matrix, vector):
     string_list.clear()
     for x in range(len(matrix)):
         if x == 0:
-            string_list.append(np.matrix(print_matrix_and_vector(matrix, vector)).round())
+            string_list.append(np.matrix(concatenate_matrix_and_vector(matrix, vector)).round())
             string_list.append("\n")
         for y in range(len(matrix) - 1, -1, -1):
             try:
@@ -58,16 +62,17 @@ def solve_matrix(matrix, vector):
             else:
                 for t in range(len(matrix)):
                     matrix[y][t] = round(pivot_element1 * matrix[y][t] - pivot_element2 * matrix[x][t], 2)
-            show_operations((x + 1), (y + 1), pivot_element2, pivot_element1)
+            print_operations((x + 1), (y + 1), pivot_element2, pivot_element1)
             vector[y] = round(pivot_element1 * vector[y] - pivot_element2 * vector[x], 2)
-            string_list.append(np.matrix(print_matrix_and_vector(matrix, vector)))
+            string_list.append(np.matrix(concatenate_matrix_and_vector(matrix, vector)))
             string_list.append("\n")
             if not check_matrix(matrix, vector):
                 return
     find_solutions(matrix, vector)
 
 
-def print_matrix_and_vector(matrix, vector):
+# Prints matrix and vector after every calculation step
+def concatenate_matrix_and_vector(matrix, vector):
     matrix_1 = [[0 for x in range(len(matrix) + 1)] for y in range(len(matrix))]
 
     for x in range(len(matrix_1)):
